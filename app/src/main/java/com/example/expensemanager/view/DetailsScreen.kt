@@ -5,6 +5,7 @@ import android.util.Log
 import android.widget.DatePicker
 import android.widget.Toast
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -12,9 +13,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowDown
@@ -27,8 +30,8 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -61,6 +64,7 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.onEach
 import java.util.Calendar
 import java.util.Date
+import kotlin.math.abs
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -72,8 +76,13 @@ fun DetailsScreen(
     detailsViewModel: DetailsViewModel
 ) {
 
+    val n = 4 // Change as needed
+    for (i in -n..n) {
+        print("${n - abs(i)} ")
+    }
+
+
     LaunchedEffect(Unit) {
-        //detailsViewModel.getItem(userId)
     }
     val effectFlow = detailsViewModel.effect
     var result by remember { mutableStateOf("") }
@@ -106,6 +115,12 @@ fun DetailsScreen(
         mSelectedText = ""
     }
 
+    val icon = if (mExpanded)
+        Icons.Filled.KeyboardArrowUp
+    else
+        Icons.Filled.KeyboardArrowDown
+
+
     Column(
         modifier = Modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally,
@@ -113,9 +128,9 @@ fun DetailsScreen(
     ) {
 
         Column(
-            modifier = Modifier.padding(16.dp)
+            modifier = Modifier.padding(horizontal = 16.dp)
         ) {
-            TextField(
+            OutlinedTextField(
                 value = amount.toString(),
                 onValueChange = { newText ->
                     amount = newText.toDouble()
@@ -123,19 +138,18 @@ fun DetailsScreen(
                 keyboardOptions = KeyboardOptions.Default.copy(
                     keyboardType = KeyboardType.Number
                 ),
+                colors = OutlinedTextFieldDefaults.colors(
+                    focusedContainerColor = Color.Transparent,
+                    unfocusedContainerColor = Color.Transparent,
+                ),
                 singleLine = true,
                 label = { Text("Enter Amount") },
                 modifier = Modifier
-                    .padding(vertical = 8.dp)
                     .fillMaxWidth()
                     .background(Color.White)
             )
 
-
-            val icon = if (mExpanded)
-                Icons.Filled.KeyboardArrowUp
-            else
-                Icons.Filled.KeyboardArrowDown
+            Spacer(modifier = Modifier.height(16.dp))
 
             Column {
                 OutlinedTextField(
@@ -144,6 +158,10 @@ fun DetailsScreen(
                         mSelectedText = it
                         Log.e("inside", "->" + it)
                     },
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent,
+                    ),
                     modifier = Modifier
                         .fillMaxWidth()
                         .onGloballyPositioned { coordinates ->
@@ -190,29 +208,45 @@ fun DetailsScreen(
                 }, mYear, mMonth, mDay
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             //DatePicker
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(8.dp),
+                    .border(1.dp, Color.Black, shape = RoundedCornerShape(4.dp)),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
+                horizontalArrangement = Arrangement.SpaceBetween,
             ) {
 
-                Text(
-                    text = if (mDate.value.isEmpty()) "Selected Date" else " ${mDate.value}",
-                    textAlign = TextAlign.Center
-                )
+                Row(
+                    Modifier
+                        .padding(8.dp)
+                        .fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.SpaceBetween,
+                ) {
 
-                Spacer(modifier = Modifier.size(8.dp))
+                    Text(
+                        text = if (mDate.value.isEmpty()) "Selected Date" else " ${mDate.value}",
+                        textAlign = TextAlign.Center
+                    )
 
-                Button(onClick = {
-                    mDatePickerDialog.show()
-                    Log.e("inside", "->" + mDate)
-                }, colors = ButtonDefaults.buttonColors(colorResource(id = R.color.purple_500))) {
-                    Text(text = "Calender", color = Color.White)
+                    Spacer(modifier = Modifier.size(8.dp))
+
+                    Button(
+                        onClick = {
+                            mDatePickerDialog.show()
+                            Log.e("inside", "->" + mDate)
+                        },
+                        colors = ButtonDefaults.buttonColors(colorResource(id = R.color.purple_500))
+                    ) {
+                        Text(text = "Calender", color = Color.White)
+                    }
                 }
             }
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Bottom button
             Button(
@@ -227,7 +261,7 @@ fun DetailsScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(horizontal = 16.dp),
                 colors = ButtonColors(
                     containerColor = colorResource(id = R.color.purple_500),
                     contentColor = Color.White,

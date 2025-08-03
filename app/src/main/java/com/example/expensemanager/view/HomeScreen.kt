@@ -146,6 +146,8 @@ fun ScrollableLayout(list: List<Expense>, onAddClick: () -> Unit, onGraphClick: 
                 color = Color.White
             )
 
+            HtmlTextDemo()
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -192,7 +194,7 @@ fun ScrollableLayout(list: List<Expense>, onAddClick: () -> Unit, onGraphClick: 
             onClick = { onAddClick() },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(16.dp),
+                .padding(bottom = 48.dp, start = 16.dp, end = 16.dp, top = 16.dp),
             colors = ButtonColors(
                 containerColor = colorResource(id = R.color.purple_500),
                 contentColor = Color.White,

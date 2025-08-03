@@ -66,7 +66,7 @@ fun GraphScreen(
 
 @Composable
 fun MyPieChart(dataList: List<Expense>) {
-    val colorList = listOf(Color.Cyan, Color.Red, Color.Green, Color.Cyan, Color.Yellow)
+    val colorList = listOf(Color.Cyan, Color.Red, Color.Green, Color.Yellow, Color.Blue)
     var i = 0
     val pieChartData = mutableListOf<PieChartData>()
 

@@ -108,6 +108,11 @@ private fun handleEffect(
             is NavigationContract.Effect.Navigation.Reset -> {
 
             }
+
+            NavigationContract.Effect.Navigation.PopBackStack -> TODO()
+            NavigationContract.Effect.Navigation.Reset -> TODO()
+            is NavigationContract.Effect.Navigation.ToDetailsScreen -> TODO()
+            is NavigationContract.Effect.Navigation.ToGraphScreen -> TODO()
         }
     }
 }
