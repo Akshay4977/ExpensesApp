@@ -17,9 +17,11 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.expensemanager.view.Dashboard
 import com.example.expensemanager.view.DetailsScreen
 import com.example.expensemanager.view.GraphScreen
 import com.example.expensemanager.view.HomeScreen
+import com.example.expensemanager.view.LoginScreen
 import com.example.expensemanager.viewmodels.DetailsViewModel
 import com.example.expensemanager.viewmodels.GraphViewModel
 import com.example.expensemanager.viewmodels.HomeViewModel
@@ -32,7 +34,7 @@ fun AppNavigation() {
     val navigationViewModel = hiltViewModel<NavigationViewModel>()
     val navController = rememberNavController()
     var startDestination by remember {
-        mutableStateOf(NavigationItem.Home.route)
+        mutableStateOf(NavigationItem.Login.route)
     }
 
     val effectFlow = navigationViewModel.effect.collectAsState(initial = null)
@@ -52,6 +54,16 @@ fun AppNavigation() {
         composable(NavigationItem.Home.route) {
             val homeViewModel = hiltViewModel<HomeViewModel>()
             HomeScreen(navigationViewModel, homeViewModel)
+        }
+
+        composable(NavigationItem.Login.route) {
+            val homeViewModel = hiltViewModel<HomeViewModel>()
+            LoginScreen(navigationViewModel, homeViewModel)
+        }
+
+        composable(NavigationItem.Dashboard.route) {
+            val homeViewModel = hiltViewModel<HomeViewModel>()
+            Dashboard(navigationViewModel, homeViewModel)
         }
 
         composable(
@@ -103,6 +115,14 @@ private fun handleEffect(
             is NavigationContract.Effect.Navigation.PopBackStack -> {
                 Log.e("inside", "here")
                 navController.popBackStack()
+            }
+
+            is NavigationContract.Effect.Navigation.ToDashboard -> {
+                navController.navigate(NavigationItem.Dashboard.route)
+            }
+
+            is NavigationContract.Effect.Navigation.ToLoginScreen -> {
+                navController.navigate(NavigationItem.Login.route)
             }
 
             is NavigationContract.Effect.Navigation.Reset -> {

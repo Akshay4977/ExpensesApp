@@ -1,19 +1,18 @@
 [versions]
-agp = "8.1.2"
-kotlin = "1.9.0"
-coreKtx = "1.13.1"
+agp = "8.5.1"
+kotlin = "1.9.22"
+coreKtx = "1.15.0"
 junit = "4.13.2"
 junitVersion = "1.2.1"
 espressoCore = "3.6.1"
-lifecycleRuntimeKtx = "2.8.6"
-activityCompose = "1.9.2"
+lifecycleRuntimeKtx = "2.8.7"
+activityCompose = "1.10.1"
 composeBom = "2024.04.01"
 
 # Hilt
-hiltVersion = "2.50"
-hiltAndroidCompilerVersion = "2.50"
+hiltVersion = "2.51.1"
+hiltAndroidCompilerVersion = "2.51.1"
 hiltNavigationComposeVersion = "1.2.0"
-hiltCompilerVersion = "1.2.0"
 
 # Compose Navigation
 navigationComposeVersion = "2.7.7"
@@ -25,8 +24,6 @@ loggingVersion = "4.10.0"
 
 # Room
 roomVersion = "2.6.1"
-
-coreKtxVersion = "1.12.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -47,7 +44,6 @@ androidx-material3 = { group = "androidx.compose.material3", name = "material3" 
 # Hilt libraries
 hilt = { module = "com.google.dagger:hilt-android", version.ref = "hiltVersion" }
 hiltAndroidCompiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hiltAndroidCompilerVersion" }
-hiltCompiler = { module = "androidx.hilt:hilt-compiler", version.ref = "hiltCompilerVersion" }
 hiltNavigationCompose = { module = "androidx.hilt:hilt-navigation-compose", version.ref = "hiltNavigationComposeVersion" }
 
 # Navigation libraries
@@ -63,11 +59,6 @@ roomRuntime = { module = "androidx.room:room-runtime", version.ref = "roomVersio
 roomCompiler = { module = "androidx.room:room-compiler", version.ref = "roomVersion" }
 roomKtx = { module = "androidx.room:room-ktx", version.ref = "roomVersion" }
 
-
-coreKtx = { module = "androidx.core:core-ktx", version.ref = "coreKtxVersion" }
-
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-
-

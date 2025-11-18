@@ -18,6 +18,10 @@ class NavigationContract {
 
             data class ToGraphScreen(val index: Int) : Navigation()
 
+            object ToLoginScreen : Navigation()
+
+            object ToDashboard : Navigation()
+
             object PopBackStack : Navigation()
 
             object Reset : Navigation()

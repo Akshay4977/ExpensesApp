@@ -4,19 +4,16 @@ plugins {
     alias(libs.plugins.jetbrains.kotlin.android)
     id("com.google.dagger.hilt.android")
     kotlin("kapt")
-    id("kotlin-android")
-    id("kotlin-kapt")
-
 }
 
 android {
     namespace = "com.example.expensemanager"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.example.expensemanager"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -52,7 +49,7 @@ android {
         compose = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = "1.5.10"
     }
     packaging {
         resources {
@@ -90,7 +87,6 @@ dependencies {
     implementation(libs.hilt)
     kapt(libs.hiltAndroidCompiler)
     implementation(libs.hiltNavigationCompose)
-    kapt(libs.hiltCompiler)
 
     //navigation
     implementation(libs.navigationCompose)
@@ -104,8 +100,6 @@ dependencies {
     implementation(libs.roomRuntime)
     kapt(libs.roomCompiler)
     implementation(libs.roomKtx)
-
-    implementation(libs.coreKtx)
 
     implementation ("com.squareup.retrofit2:converter-gson:2.9.0")
 }
